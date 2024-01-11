@@ -3,7 +3,6 @@ title: next.js 优势
 date: 2023-12-04 11:43:00
 tags:
   [前端]
-image: http://image.hansking.cn/picgo/IMG_20231203_165455.jpg
 ---
 
 ## next.js 优势

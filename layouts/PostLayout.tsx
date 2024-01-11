@@ -71,14 +71,16 @@ export default function PostLayout({ content, children }) {
                     ))}
                 </div>
               </dl>
-              <Image
-                className="rounded-xl"
-                src={image}
-                width={1600}
-                height={900}
-                alt=""
-                placeholder={getbg(image)}
-              />
+              {image && (
+                <Image
+                  className="rounded-xl"
+                  src={image}
+                  width={1600}
+                  height={900}
+                  alt=""
+                  placeholder={getbg(image)}
+                />
+              )}
             </div>
           </header>
           <div className="prose max-w-none py-8 dark:prose-dark lg:prose-lg prose-img:rounded-xl">
