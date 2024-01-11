@@ -46,6 +46,9 @@ function createTagCount(allPosts) {
   const tagCount: Record<string, number> = {}
   allPosts.forEach((file) => {
     if (file.tags && file.draft !== true) {
+      if (file.tags.includes('plog')) {
+        return
+      }
       file.tags.forEach((tag) => {
         const formattedTag = tag
         if (formattedTag in tagCount) {
@@ -57,6 +60,26 @@ function createTagCount(allPosts) {
     }
   })
   writeFileSync('./app/tag-data.json', JSON.stringify(tagCount))
+}
+
+function createPlogTagCount(allPosts) {
+  const tagCount: Record<string, number> = {}
+  allPosts.forEach((file) => {
+    if (file.tags && file.draft !== true) {
+      if (!file.tags.includes('plog')) {
+        return
+      }
+      file.tags.forEach((tag) => {
+        const formattedTag = tag
+        if (formattedTag in tagCount) {
+          tagCount[formattedTag] += 1
+        } else {
+          tagCount[formattedTag] = 1
+        }
+      })
+    }
+  })
+  writeFileSync('./app/tag-plog-data.json', JSON.stringify(tagCount))
 }
 
 function createSearchIndex(allPosts) {
@@ -137,6 +160,7 @@ export default makeSource({
   onSuccess: async (importData) => {
     const { allPosts } = await importData()
     createTagCount(allPosts)
+    createPlogTagCount(allPosts)
     createSearchIndex(allPosts)
   },
 })
